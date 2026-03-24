@@ -163,7 +163,7 @@
           animation: shimmer 6s infinite;
         }
 
-        @keyframes __shimmer {
+        @keyframes shimmer {
           0%,
           100% {
             transform: translateX(-100%) skewX(-15deg);
@@ -378,12 +378,45 @@
         }
 
         .team-grid {
-          max-width: 1200px;
+          max-width: 1380px;
           margin: 4rem auto 0;
-          padding: 0 2rem;
+          padding: 0 1.5rem;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+          .team-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .team-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+          }
+          .team-card {
+            padding: 1.75rem 1.25rem;
+          }
+          .team-avatar {
+            width: 105px;
+            height: 105px;
+            font-size: 3rem;
+          }
+        }
+
+        @media (max-width: 576px) {
+          .team-grid {
+            grid-template-columns: 1fr;
+            padding: 0 1rem;
+            gap: 0.85rem;
+          }
+          .team-card {
+            padding: 1.5rem 1rem;
+          }
         }
 
         .team-card {
@@ -419,14 +452,34 @@
         }
 
         .team-avatar {
+          position: relative;
           width: 120px;
           height: 120px;
           border-radius: 50%;
           margin: 0 auto 1.5rem;
-          background-size: cover;
-          background-position: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(219, 211, 198, 0.2);
           border: 4px solid var(--wood-brown);
           transition: all 0.3s ease;
+          color: var(--light-beige);
+          font-size: 3.5rem;
+        }
+
+        .team-avatar .gender-icon {
+          position: absolute;
+          right: 8px;
+          bottom: 8px;
+          font-size: 0.9rem;
+          color: var(--wood-brown);
+          background: rgba(255, 255, 255, 0.85);
+          border-radius: 50%;
+          width: 22px;
+          height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .team-card:hover .team-avatar {
@@ -797,7 +850,71 @@
           transform: scale(1.1);
           transition: 0.3s;
         }
+
+        /* Fade-in animation baseline */
+        .fade-in {
+          opacity: 0;
+          transform: translateY(25px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* About typing placeholder */
+        .typing-text {
+          color: var(--light-beige);
+          font-family: "Poppins", sans-serif;
+          font-size: 1.05rem;
+          font-weight: 500;
+        }
+
+        .typing-cursor {
+          display: inline-block;
+          width: 2px;
+          height: 1.2em;
+          background: var(--light-beige);
+          margin-left: 4px;
+          animation: blink 0.7s steps(2, start) infinite;
+          vertical-align: bottom;
+        }
+
+        @keyframes blink {
+          0%, 50% {
+            opacity: 1;
+          }
+          51%, 100% {
+            opacity: 0;
+          }
+        }
+
         @media (max-width: 768px) {
+          .hero {
+            min-height: 85vh;
+            padding-top: 12vh;
+          }
+
+          .hero-content h2 {
+            font-size: 2rem;
+          }
+
+          .about-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .about-img img {
+            height: auto;
+            max-height: 320px;
+          }
+
+          .service-card {
+            flex: 0 0 100%;
+            max-width: 100%;
+          }
+        }
           .nav {
             padding: 0 1rem;
           }
@@ -830,7 +947,7 @@
           .section-title {
             font-size: 2.2rem;
           }
-        }
+        
       </style>
     </head>
 
@@ -868,6 +985,9 @@
           <a href="#services" class="btn">Explore Services</a>
         </div>
       </section>
+
+
+      
 
       <!-- Services Carousel -->
       <section id="services" class="services">
@@ -989,6 +1109,67 @@
           </button>
         </div>
       </section>
+<!-- About Section -->
+      <section id="about" class="about">
+        <div class="about-container">
+          <div class="about-img fade-in">
+            <img
+              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+              alt="About Ahavin"
+            />
+          </div>
+          <div class="about-text fade-in">
+            <h2>About Ahavin Consultancy</h2>
+            <p>
+              Ahavin Consultancy Services provides engineering solutions including
+              architectural planning, structural design, bridge engineering and
+              project estimation.
+            </p>
+            <p>
+              Our mission is to deliver safe, innovative and cost-efficient design
+              solutions for residential, commercial and infrastructure projects
+              across West Bengal and beyond.
+            </p>
+            <p class="typing-text">
+              <span id="typing-text"></span><span class="typing-cursor"></span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+ <!-- Vision Section -->
+      <section id="vision" class="vision-section">
+        <h2 class="section-title fade-in" style="color: var(--light-beige);">Vision, Mission & Values</h2>
+        <div class="vision-container">
+          <div class="vision-card fade-in">
+            <i class="bi bi-eye-fill"></i>
+            <h3>Vision</h3>
+            <p>
+              Be the Leading Social Innovative Business resolving Environmental
+              Issues and achieving a Higher Quality of Life and a Sustainable
+              Society.
+            </p>
+          </div>
+          <div class="vision-card fade-in">
+            <i class="bi bi-bullseye"></i>
+            <h3>Mission</h3>
+            <p>
+              To harness superior thinking in the creation of products that
+              functionally and visually enhance the spaces in which people live.
+            </p>
+          </div>
+          <div class="vision-card fade-in">
+            <i class="bi bi-heart-fill"></i>
+            <h3>Values</h3>
+            <p>
+              <strong>Passion:</strong> Passion is the fuel that drives our
+              culture.<br /><strong>People:</strong> We care deeply about our
+              stakeholders.<br /><strong>Place:</strong> Responsibility for our
+              environment.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <!-- Team Section -->
       <section id="team" class="team">
@@ -999,75 +1180,104 @@
         </div>
         <div class="team-grid">
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80&quot;);
-              "
-            ></div>
-            <h3>Pritam Samui</h3>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Shovan Kundu & Team</h3>
             <div class="role">Founder & Principal Engineer</div>
-            <p>
-              20+ years experience in structural engineering and project
-              management.
+            <p>In structural Engineering and Project Management.
             </p>
           </div>
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80&quot;);
-              "
-            ></div>
-            <h3>Rahul Banerjee</h3>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. R. Chowdhury</h3>
             <div class="role">Lead Architect</div>
             <p>Specialist in sustainable architecture and urban planning.</p>
           </div>
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80&quot;);
-              "
-            ></div>
-            <h3>Anita Das</h3>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Rabindranath Pore</h3>
             <div class="role">Senior Structural Engineer</div>
             <p>Expert in seismic design and high-rise structures.</p>
           </div>
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;data:image/jpeg;base64,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&quot;);
-              "
-            ></div>
-            <h3>Sourav Ghosh</h3>
-            <div class="role">Quantity Surveyor</div>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. S. Majumdar</h3>
+            <div class="role">Senior Architect</div>
+            <p>BOQ specialist with 15+ years in cost estimation.</p>
+          </div>
+          
+          <div class="team-card fade-in">
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Kajol Roy</h3>
+            <div class="role">Senior Architect</div>
             <p>BOQ specialist with 15+ years in cost estimation.</p>
           </div>
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80&quot;);
-              "
-            ></div>
-            <h3>Meera Sen</h3>
-            <div class="role">Bridge Design Engineer</div>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Senehashis Nandi</h3>
+            <div class="role">Senior Bridge Design Engineer</div>
             <p>Innovative solutions for complex infrastructure projects.</p>
           </div>
           <div class="team-card fade-in">
-            <div
-              class="team-avatar"
-              style="
-                background-image: url(&quot;https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80&quot;);
-              "
-            ></div>
-            <h3>Vikram Roy</h3>
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Senehashis Dhari</h3>
+            <div class="role">Senior Bridge Design Engineer</div>
+            <p>Innovative solutions for complex infrastructure projects.</p>
+          </div>
+          
+          <div class="team-card fade-in">
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-female"></i></span>
+            </div>
+            <h3>Ms. Namita Mistry</h3>
             <div class="role">Project Manager</div>
             <p>Delivering projects on time, within budget.</p>
           </div>
+        
+        
+          <div class="team-card fade-in">
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-male"></i></span>
+            </div>
+            <h3>Mr. Hlok Bera</h3>
+            <div class="role">Quality & Billing Engineer</div>
+            <p>Delivering Accurate Billings and Structural Excellence in Projects</p>
+          </div>
+        
+        
+          <div class="team-card fade-in">
+            <div class="team-avatar">
+              <i class="bi bi-person-circle"></i>
+              <span class="gender-icon"><i class="bi bi-gender-female"></i></span>
+            </div>
+            <h3>Ms. Sudipa Mondal</h3>
+            <div class="role">Accountant</div>
+            <p>Driving Financial Efficiency & Cost Savings</p>
+          </div>
         </div>
+        
       </section>
 
       <!-- Video Gallery -->
@@ -1125,30 +1335,7 @@
         </div>
       </section>
 
-      <!-- About Section -->
-      <section id="about" class="about">
-        <div class="about-container">
-          <div class="about-img fade-in">
-            <img
-              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
-              alt="About Ahavin"
-            />
-          </div>
-          <div class="about-text fade-in">
-            <h2>About Ahavin Consultancy</h2>
-            <p>
-              Ahavin Consultancy Services provides engineering solutions including
-              architectural planning, structural design, bridge engineering and
-              project estimation.
-            </p>
-            <p>
-              Our mission is to deliver safe, innovative and cost-efficient design
-              solutions for residential, commercial and infrastructure projects
-              across West Bengal and beyond.
-            </p>
-          </div>
-        </div>
-      </section>
+      
 
       <!-- Associates Section -->
       <section id="associates" class="associates">
@@ -1223,39 +1410,7 @@
         </div>
       </section>
 
-      <!-- Vision Section -->
-      <section id="vision" class="vision-section">
-        <h2 class="section-title fade-in" style="color: var(--light-beige);">Vision, Mission & Values</h2>
-        <div class="vision-container">
-          <div class="vision-card fade-in">
-            <i class="bi bi-eye-fill"></i>
-            <h3>Vision</h3>
-            <p>
-              Be the Leading Social Innovative Business resolving Environmental
-              Issues and achieving a Higher Quality of Life and a Sustainable
-              Society.
-            </p>
-          </div>
-          <div class="vision-card fade-in">
-            <i class="bi bi-bullseye"></i>
-            <h3>Mission</h3>
-            <p>
-              To harness superior thinking in the creation of products that
-              functionally and visually enhance the spaces in which people live.
-            </p>
-          </div>
-          <div class="vision-card fade-in">
-            <i class="bi bi-heart-fill"></i>
-            <h3>Values</h3>
-            <p>
-              <strong>Passion:</strong> Passion is the fuel that drives our
-              culture.<br /><strong>People:</strong> We care deeply about our
-              stakeholders.<br /><strong>Place:</strong> Responsibility for our
-              environment.
-            </p>
-          </div>
-        </div>
-      </section>
+     
       <!-- <hr /> -->
       <!-- Footer (Write Us form REMOVED) -->
       <footer class="footer" id="Contact">
@@ -1384,6 +1539,64 @@
             });
           });
         });
+
+        // About typing animation
+        const aboutTypingEl = document.getElementById("typing-text");
+        const typingLines = [
+          "Trusted by local builders and institutions.",
+          "Complete design from concept to commissioning.",
+          "Expert structural, bridge and infrastructure engineering.",
+          "Sustainability and safety in every project.",
+        ];
+        let typingIndex = 0;
+        let charIndex = 0;
+        let typingDirection = "forward";
+        let pauseCounter = 0;
+
+        function startTypingLoop() {
+          if (!aboutTypingEl) return;
+
+          const text = typingLines[typingIndex];
+
+          if (typingDirection === "forward") {
+            if (charIndex < text.length) {
+              charIndex++;
+              aboutTypingEl.textContent = text.slice(0, charIndex);
+            } else {
+              pauseCounter++;
+              if (pauseCounter > 15) {
+                typingDirection = "backward";
+                pauseCounter = 0;
+              }
+            }
+          } else {
+            if (charIndex > 0) {
+              charIndex--;
+              aboutTypingEl.textContent = text.slice(0, charIndex);
+            } else {
+              typingIndex = (typingIndex + 1) % typingLines.length;
+              typingDirection = "forward";
+            }
+          }
+          setTimeout(startTypingLoop, typingDirection === "forward" ? 80 : 40);
+        }
+
+        const aboutObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startTypingLoop();
+                aboutObserver.disconnect();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        const aboutSection = document.querySelector("#about");
+        if (aboutSection) {
+          aboutObserver.observe(aboutSection);
+        }
       </script>
 
       <!-- Bootstrap 5 JS (with Popper) -->
@@ -1394,5 +1607,4 @@
       ></script>
     </body>
   </html>
-
 
