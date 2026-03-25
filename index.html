@@ -183,6 +183,7 @@
     /* LEFT */
     .hero-modern-left {
       max-width: 500px;
+      margin-bottom: 50px;
     }
 
     .hm-sub {
@@ -222,7 +223,7 @@
     .hm-card {
       width: 240px;
       height: 320px;
-      border-radius: 20px;
+      border-radius: 20px !important;
       overflow: hidden;
       position: relative;
       transition: 0.4s;
@@ -247,6 +248,8 @@
     .hm-main {
       transform: scale(1.05);
       z-index: 2;
+      overflow: visible;
+      border-radius: 5px !important;
     }
 
     /* SIDE CARD */
@@ -1843,7 +1846,7 @@
       hmIndex = (hmIndex + 1) % hmCards.length;
 
       hmCards[hmIndex].classList.add("hm-main");
-    }, 3000);
+    }, 9000);
   </script>
 
   <!-- Bootstrap 5 JS (with Popper) -->
