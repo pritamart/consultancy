@@ -343,15 +343,15 @@
           var(--bg-green) 100%);
     }
 
-    .team-grid {
-      max-width: 1380px;
-      margin: 4rem auto 0;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
+   .team-grid {
+  position: relative;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;   /* increased */
+  perspective: 1200px;
+  overflow: visible;   /* 🔥 IMPORTANT FIX */
+}
     @media (max-width: 1200px) {
       .team-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -395,9 +395,14 @@
       border-radius: 24px;
       padding: 2.5rem 2rem;
       text-align: center;
-      transition: all 0.4s ease;
+      transition: all 0.4s ease; transition: all 0.6s ease;
       position: relative;
       overflow: hidden;
+       position: absolute; 
+       width: 260px;
+      opacity: 0;           /* ADD */
+      transform: scale(0.6);/* ADD */
+      filter: blur(3px);    /* ADD */
     }
 
     .team-card::before {
@@ -1512,6 +1517,74 @@
       aboutObserver.observe(aboutSection);
     }
   </script>
+  <script>
+const cards = document.querySelectorAll(".team-card");
+let current = 0;
+
+function updateCarousel() {
+  cards.forEach((card, i) => {
+    const offset = i - current;
+
+    if (offset === 0) {
+      // Center card
+      card.style.transform = "translateX(0) scale(1.1) translateZ(100px)";
+      card.style.opacity = "1";
+      card.style.filter = "blur(0)";
+      card.style.zIndex = "3";
+    } else if (offset === -1 || offset === cards.length - 1) {
+      // Left card
+      card.style.transform = "translateX(-220px) scale(0.8) rotateY(20deg)";
+      card.style.opacity = "0.6";
+      card.style.filter = "blur(1px)";
+      card.style.zIndex = "2";
+    } else if (offset === 1 || offset === -(cards.length - 1)) {
+      // Right card
+      card.style.transform = "translateX(220px) scale(0.8) rotateY(-20deg)";
+      card.style.opacity = "0.6";
+      card.style.filter = "blur(1px)";
+      card.style.zIndex = "2";
+    } else {
+      // Hidden cards
+      card.style.transform = "translateX(0) scale(0.5)";
+      card.style.opacity = "0";
+      card.style.zIndex = "1";
+    }
+  });
+}
+
+// Next / Prev
+function next() {
+  current = (current + 1) % cards.length;
+  updateCarousel();
+}
+
+function prev() {
+  current = (current - 1 + cards.length) % cards.length;
+  updateCarousel();
+}
+
+// Auto slide
+setInterval(next, 3000);
+
+// Swipe support
+let startX = 0;
+
+const container = document.querySelector(".team-grid");
+
+container.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+container.addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX > endX + 50) next();
+  else if (startX < endX - 50) prev();
+});
+
+// Init
+updateCarousel();
+</script>
 
   <!-- Bootstrap 5 JS (with Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
