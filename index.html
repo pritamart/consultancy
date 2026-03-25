@@ -15,6 +15,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Outfit:wght@100..900&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
@@ -108,6 +112,257 @@
       border: none;
       cursor: pointer;
     }
+
+    /* ===== HERO MODERN (NO CONFLICT) ===== */
+
+    .hero-modern {
+      padding: 120px 6%;
+      background: linear-gradient(135deg, #03382a, #025240);
+      color: #fff;
+      font-family: "Playfair Display", serif;
+    }
+
+    /* ===== HERO BACKGROUND UPGRADE ===== */
+
+    .hero-modern {
+      position: relative;
+      background: linear-gradient(135deg, #03382a, #025240);
+      overflow: hidden;
+    }
+
+    /* 1. Soft radial glow (depth) */
+    .hero-modern::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+      top: -150px;
+      left: -150px;
+    }
+
+    /* 2. Civil blueprint grid (engineering feel) */
+    .hero-modern::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.3;
+    }
+
+    /* 3. Optional floating light effect */
+    .hero-modern-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes moveGrid {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+
+    .hero-modern::after {
+      animation: moveGrid 20s linear infinite;
+    }
+
+    .hero-modern-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* LEFT */
+    .hero-modern-left {
+      max-width: 500px;
+    }
+
+    .hm-sub {
+      opacity: 0.7;
+    }
+
+    .hm-title {
+      font-size: 3rem;
+      margin: 15px 0;
+      line-height: 1.2;
+      font-family: "Outfit", sans-serif;
+    }
+
+    .hm-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #c38d61, #795432);
+      border-radius: 30px;
+      color: white;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: 0.3s;
+    }
+
+    .hm-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    /* RIGHT */
+    .hero-modern-right {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    /* CARD */
+    .hm-card {
+      width: 240px;
+      height: 320px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.4s;
+    }
+
+    .hm-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* OVERLAY */
+    .hm-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    }
+
+    /* MAIN CARD */
+    .hm-main {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    /* SIDE CARD */
+    .hm-side {
+      transform: scale(0.9);
+      opacity: 0.7;
+    }
+
+    /* HOVER */
+    .hm-card:hover {
+      transform: scale(1.1);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px) {
+      .hero-modern-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-modern-right {
+        margin-top: 40px;
+      }
+    }
+
+    /* =========================
+   TABLET (≤1024px)
+========================= */
+@media (max-width: 1024px) {
+
+  .hero-modern-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .hero-modern-left {
+    max-width: 100%;
+  }
+
+  .hm-title {
+    font-size: 2.4rem;
+  }
+
+  .hero-modern-right {
+    justify-content: center;
+  }
+
+  .hm-card {
+    width: 220px;
+    height: 300px;
+  }
+}
+
+/* =========================
+   MOBILE (≤768px)
+========================= */
+@media (max-width: 768px) {
+
+  .hero-modern {
+    padding: 80px 20px;
+  }
+
+  .hm-title {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+
+  .hm-sub {
+    font-size: 13px;
+  }
+
+  .hm-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  /* STACK CARDS */
+  .hero-modern-right {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hm-card {
+    width: 90%;
+    max-width: 300px;
+    height: 260px;
+  }
+
+  .hm-main {
+    transform: scale(1);
+  }
+
+  .hm-side {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+}
+
+/* =========================
+   SMALL MOBILE (≤480px)
+========================= */
+@media (max-width: 480px) {
+
+  .hm-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-modern {
+    padding: 60px 15px;
+  }
+
+  .hm-card {
+    height: 240px;
+  }
+}
 
     /* Hero Section */
     .hero {
@@ -221,7 +476,7 @@
 
     /* Services - Card Carousel (Bootstrap) */
     .services {
-      padding: 10px 100px;
+      padding: 10px 20px;
       background: var(--light-beige);
     }
 
@@ -331,7 +586,7 @@
     /* Services multi-item carousel (desktop: 3, mobile: 1) */
     #servicesCarousel .service-card {
       width: 100%;
-      max-width: 360px;
+      min-width: 360px;
       flex: initial;
     }
 
@@ -343,15 +598,16 @@
           var(--bg-green) 100%);
     }
 
-   .team-grid {
-  position: relative;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  min-height: 500px;   /* increased */
-  perspective: 1200px;
-  overflow: visible;   /* 🔥 IMPORTANT FIX */
-}
+    .team-grid {
+      position: relative;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
     @media (max-width: 1200px) {
       .team-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -395,14 +651,19 @@
       border-radius: 24px;
       padding: 2.5rem 2rem;
       text-align: center;
-      transition: all 0.4s ease; transition: all 0.6s ease;
+      transition: all 0.4s ease;
+      transition: all 0.6s ease;
       position: relative;
       overflow: hidden;
-       position: absolute; 
-       width: 260px;
-      opacity: 0;           /* ADD */
-      transform: scale(0.6);/* ADD */
-      filter: blur(3px);    /* ADD */
+      position: absolute;
+      width: 260px;
+      height: 320px;
+      opacity: 0;
+      /* ADD */
+      transform: scale(0.6);
+      /* ADD */
+      filter: blur(3px);
+      /* ADD */
     }
 
     .team-card::before {
@@ -710,11 +971,13 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 1.5rem;
     }
-.vision-card i vision {
-      background: white !important;
-      
 
-}
+    .vision-card i vision {
+      background: white !important;
+
+
+    }
+
     .vision-card h3 {
       font-family: "Playfair Display", serif;
       color: var(--light-beige);
@@ -963,6 +1226,41 @@
       </nav>
     </div>
   </header>
+
+
+  <section class="hero-modern">
+    <div class="hero-modern-container">
+
+      <!-- LEFT -->
+      <div class="hero-modern-left">
+        <p class="hm-sub">Building dreams</p>
+        <h1 class="hm-title">Building The Future Together</h1>
+        <a href="#about" class="hm-btn">About Us</a>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="hero-modern-right">
+
+        <div class="hm-card hm-main">
+          <img src="https://ci.design/wp-content/uploads/2020/11/Blueprint.jpg">
+          <div class="hm-overlay">
+            <h4>Architecture</h4>
+            <p>Structural Design & Planning</p>
+          </div>
+        </div>
+
+        <div class="hm-card hm-side">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
+          <div class="hm-overlay">
+            <h4>Construction</h4>
+            <p>Modern House Design</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
@@ -1330,7 +1628,7 @@
       <div class="footer-col">
         <h3>About Us</h3>
         <p>
-          <strong>Ahavin  </strong> was established in
+          <strong>Ahavin </strong> was established in
           2026 as a professional Civil, Architecture & Construction consultancy
           Engineering firm under the leadership
           of <strong> Shovan Kundu & Team of Ahavin </strong>
@@ -1518,73 +1816,84 @@
     }
   </script>
   <script>
-const cards = document.querySelectorAll(".team-card");
-let current = 0;
+    const cards = document.querySelectorAll(".team-card");
+    let current = 0;
 
-function updateCarousel() {
-  cards.forEach((card, i) => {
-    const offset = i - current;
+    function updateCarousel() {
+      cards.forEach((card, i) => {
+        const offset = i - current;
 
-    if (offset === 0) {
-      // Center card
-      card.style.transform = "translateX(0) scale(1.1) translateZ(100px)";
-      card.style.opacity = "1";
-      card.style.filter = "blur(0)";
-      card.style.zIndex = "3";
-    } else if (offset === -1 || offset === cards.length - 1) {
-      // Left card
-      card.style.transform = "translateX(-220px) scale(0.8) rotateY(20deg)";
-      card.style.opacity = "0.6";
-      card.style.filter = "blur(1px)";
-      card.style.zIndex = "2";
-    } else if (offset === 1 || offset === -(cards.length - 1)) {
-      // Right card
-      card.style.transform = "translateX(220px) scale(0.8) rotateY(-20deg)";
-      card.style.opacity = "0.6";
-      card.style.filter = "blur(1px)";
-      card.style.zIndex = "2";
-    } else {
-      // Hidden cards
-      card.style.transform = "translateX(0) scale(0.5)";
-      card.style.opacity = "0";
-      card.style.zIndex = "1";
+        if (offset === 0) {
+          // Center card
+          card.style.transform = "translateX(0) scale(1.1) translateZ(100px)";
+          card.style.opacity = "1";
+          card.style.filter = "blur(0)";
+          card.style.zIndex = "3";
+        } else if (offset === -1 || offset === cards.length - 1) {
+          // Left card
+          card.style.transform = "translateX(-220px) scale(0.8) rotateY(20deg)";
+          card.style.opacity = "0.6";
+          card.style.filter = "blur(1px)";
+          card.style.zIndex = "2";
+        } else if (offset === 1 || offset === -(cards.length - 1)) {
+          // Right card
+          card.style.transform = "translateX(220px) scale(0.8) rotateY(-20deg)";
+          card.style.opacity = "0.6";
+          card.style.filter = "blur(1px)";
+          card.style.zIndex = "2";
+        } else {
+          // Hidden cards
+          card.style.transform = "translateX(0) scale(0.5)";
+          card.style.opacity = "0";
+          card.style.zIndex = "1";
+        }
+      });
     }
-  });
-}
 
-// Next / Prev
-function next() {
-  current = (current + 1) % cards.length;
-  updateCarousel();
-}
+    // Next / Prev
+    function next() {
+      current = (current + 1) % cards.length;
+      updateCarousel();
+    }
 
-function prev() {
-  current = (current - 1 + cards.length) % cards.length;
-  updateCarousel();
-}
+    function prev() {
+      current = (current - 1 + cards.length) % cards.length;
+      updateCarousel();
+    }
 
-// Auto slide
-setInterval(next, 3000);
+    // Auto slide
+    setInterval(next, 3000);
 
-// Swipe support
-let startX = 0;
+    // Swipe support
+    let startX = 0;
 
-const container = document.querySelector(".team-grid");
+    const container = document.querySelector(".team-grid");
 
-container.addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
+    container.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
 
-container.addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
+    container.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
 
-  if (startX > endX + 50) next();
-  else if (startX < endX - 50) prev();
-});
+      if (startX > endX + 50) next();
+      else if (startX < endX - 50) prev();
+    });
 
-// Init
-updateCarousel();
-</script>
+    // Init
+    updateCarousel();
+
+    const hmCards = document.querySelectorAll(".hm-card");
+    let hmIndex = 0;
+
+    setInterval(() => {
+      hmCards.forEach(card => card.classList.remove("hm-main"));
+
+      hmIndex = (hmIndex + 1) % hmCards.length;
+
+      hmCards[hmIndex].classList.add("hm-main");
+    }, 3000);
+  </script>
 
   <!-- Bootstrap 5 JS (with Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
