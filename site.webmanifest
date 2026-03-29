@@ -1,19 +1,59 @@
 {
     "name": "Ahavin Consultancy Services",
     "short_name": "Ahavin",
+    "description": "Professional Architecture & Civil Consultancy Services",
+    "start_url": "/",
+    "scope": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/favicon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "categories": ["business", "productivity"],
+    "screenshots": [
+        {
+            "src": "/screenshot-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/screenshot-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Services",
+            "short_name": "Services",
+            "description": "View our services",
+            "url": "/?page=services",
+            "icons": [
+                {
+                    "src": "/android-chrome-192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+    "prefer_related_applications": false
 }
