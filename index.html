@@ -547,6 +547,45 @@
     </div>
   </section>
 
+  <!-- Remarks & Testimonials Section -->
+  <section id="remarks" class="services" style="background-color: #f8f9fa; padding: 80px 0;">
+    <div class="container">
+      <h2 class="section-title fade-in" style="color: #212529; text-align: center; margin-bottom: 40px;">
+        Client Remarks & Feedback
+      </h2>
+      
+      <!-- Remarks Dynamic Display Grid -->
+      <div class="row g-4 justify-content-center mb-5" id="remarksContainer">
+        <!-- Remarks will be loaded dynamically here -->
+      </div>
+
+      <!-- Add Remark Form -->
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          <div class="p-4 rounded shadow-sm bg-white" style="border: 1px solid #dee2e6;">
+            <h4 class="text-dark mb-3 text-center">Leave Your Remark</h4>
+            <form id="remarkForm">
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY"> <!-- Optional: to email you copies -->
+              <div class="mb-3">
+                <input type="text" class="form-control bg-light text-dark border-secondary" id="reviewerName" placeholder="Your Name" required>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control bg-light text-dark border-secondary" id="reviewerRole" placeholder="Your Designation / Role (e.g., Client, Engineer)" required>
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control bg-light text-dark border-secondary" id="reviewerMessage" rows="3" placeholder="Write your remarks here..." required></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" id="submitBtn" class="btn btn-dark px-4 py-2">Submit Remark</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- <hr /> -->
   <!-- Footer (Write Us form REMOVED) -->
   <footer class="footer" id="Contact">
@@ -592,7 +631,7 @@
         <p><i class="bi bi-telephone"></i> &nbsp;<a href="tel:+918927702048">+91 8927702048</a></p>
         <p>
           <i class="bi bi-envelope"></i> &nbsp;
-          <a href="mailto:AHAVIN.16.AUG@gmail.com">AHAVIN.16.AUG@gmail.com</a>
+          <a href="mailto:AHAVIN.16.AUG.@gmail.com">AHAVIN.16.AUG.@gmail.com</a>
         </p>
       </div>
     </div>
@@ -607,6 +646,9 @@
 
 
   <script>
+
+
+
     // Mobile Menu (safe check)
     document.getElementById("year").textContent = new Date().getFullYear();
     const menuToggle = document.getElementById("menu-toggle");
@@ -835,6 +877,141 @@
         });
       });
     }
+
+
+    const remarksContainer = document.getElementById("remarksContainer");
+  const remarkForm = document.getElementById("remarkForm");
+
+  // Since GitHub Pages is static, we can use a free JSON storage bin (like JSONbin.io) 
+  // OR fallback to localStorage if offline. 
+  // Create a free bin on https://jsonbin.io and paste your Bin ID and Master Key here:
+  const JSONBIN_ID = "6aba983dac6210605afea26a"; // e.g., 658b...
+  const JSONBIN_API_KEY = "$2a$10$5yDMsF72vfyesmK6rQLnSe8FRhuaku/ywVJ3noHYdm1NH0JrsZWF."; // Optional, for writing
+
+  // Fetch and display remarks dynamically on page load
+  window.addEventListener("DOMContentLoaded", () => {
+    fetchRemarks();
+  });
+
+  function fetchRemarks() {
+    if (JSONBIN_ID === "YOUR_JSONBIN_ID_HERE") {
+      // Fallback if JSONbin isn't set up yet: load from localStorage/default mock data
+      loadDefaultRemarks();
+      return;
+    }
+
+    fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`, {
+      headers: {
+        'X-Master-Key': JSONBIN_API_KEY
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const remarks = data.record.remarks || [];
+      renderRemarks(remarks);
+    })
+    .catch(err => {
+      console.error("Error fetching remarks:", err);
+      loadDefaultRemarks();
+    });
+  }
+
+  function renderRemarks(remarks) {
+    remarksContainer.innerHTML = "";
+    if (remarks.length === 0) {
+      remarksContainer.innerHTML = `<p class="text-center text-muted">No remarks yet. Be the first to leave one!</p>`;
+      return;
+    }
+    remarks.forEach(r => {
+      const colDiv = document.createElement("div");
+      colDiv.className = "col-12 col-md-4 d-flex justify-content-center";
+      colDiv.innerHTML = `
+        <div class="service-card fade-in p-4 w-100 shadow-sm" style="background: #ffffff; border-radius: 10px; border: 1px solid #dee2e6;">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-person-circle fs-3 text-primary me-2"></i>
+            <div>
+              <h5 class="mb-0 text-dark">${escapeHtml(r.name)}</h5>
+              <small class="text-muted">${escapeHtml(r.role)}</small>
+            </div>
+          </div>
+          <p class="text-secondary">"${escapeHtml(r.message)}"</p>
+        </div>
+      `;
+      remarksContainer.appendChild(colDiv);
+    });
+  }
+
+  function loadDefaultRemarks() {
+    // Default mock data or local fallback
+    const defaultData = [
+      { name: "Anirban Mukherjee", role: "Project Client", message: "Ahavin Consultancy provided exceptional structural design and planning for our commercial building. Highly professional team!" },
+      { name: "Priyanka Sen", role: "Homeowner", message: "Brilliant architectural execution! They stayed true to timelines and budget constraints. Kudos to Shovan and the team." }
+    ];
+    renderRemarks(defaultData);
+  }
+
+  // Handle Form Submission
+  if (remarkForm) {
+    remarkForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("reviewerName").value;
+      const role = document.getElementById("reviewerRole").value;
+      const message = document.getElementById("reviewerMessage").value;
+      const submitBtn = document.getElementById("submitBtn");
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      // If using JSONbin.io to update the cloud file dynamically:
+      if (JSONBIN_ID !== "YOUR_JSONBIN_ID_HERE") {
+        // 1. Fetch current data, append new item, and push back
+        fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}/latest`, {
+          headers: { 'X-Master-Key': JSONBIN_API_KEY }
+        })
+        .then(res => res.json())
+        .then(data => {
+          let remarks = data.record.remarks || [];
+          remarks.unshift({ name, role, message }); // Add new to top
+
+          return fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Master-Key': JSONBIN_API_KEY
+            },
+            body: JSON.stringify({ remarks })
+          });
+        })
+        .then(() => {
+          alert("Thank you! Your remark has been saved online.");
+          remarkForm.reset();
+          fetchRemarks(); // Refresh list dynamically
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Remark";
+        })
+        .catch(err => {
+          console.error("Error saving remark:", err);
+          alert("Failed to save remark online. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Remark";
+        });
+      } else {
+        // Fallback local storage simulation if cloud bin isn't keyed yet
+        setTimeout(() => {
+          alert("Remark submitted successfully! (Connect JSONbin for persistent online file storage).");
+          remarkForm.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Remark";
+        }, 500);
+      }
+    });
+  }
+
+  function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
   </script>
 
   <!-- Bootstrap 5 JS (with Popper) -->
