@@ -1330,3 +1330,21 @@ nav a:hover i {
   0%, 100% { opacity: 0.2; }
   50% { opacity: 1; }
 }
+
+.modern-review-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.modern-review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1) !important;
+}
+.form-control:focus {
+  background-color: #fff !important;
+  border-color: #4f46e5 !important;
+}
+
