@@ -1331,20 +1331,52 @@ nav a:hover i {
   50% { opacity: 1; }
 }
 
+.vertical-marquee-wrapper {
+  height: 420px;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+.vertical-marquee-track {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: scrollVertical 20s linear infinite;
+}
+.vertical-marquee-wrapper:hover .vertical-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes scrollVertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
 .modern-review-card {
   background: #ffffff;
   border-radius: 16px;
   border: 1px solid rgba(229, 231, 235, 0.6);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-.modern-review-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 .form-control:focus {
   background-color: #fff !important;
   border-color: #4f46e5 !important;
 }
-
+.rating-star {
+  transition: color 0.2s;
+}
