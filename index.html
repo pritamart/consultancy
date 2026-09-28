@@ -546,7 +546,7 @@
         </a> -->
     </div>
   </section>
-  <!-- Modern Remarks & Testimonials Section -->
+  <!-- Modern Remarks & Testimonials Section with Vertical Smooth Animation -->
   <section id="remarks" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 100px 0; position: relative; overflow: hidden;">
     <div class="container" style="position: relative; z-index: 2;">
       
@@ -557,22 +557,41 @@
         <p class="text-muted mx-auto" style="max-width: 600px;">Hear what our esteemed clients and partners have to say about our engineering and structural execution.</p>
       </div>
       
-      <!-- Remarks Dynamic Display Grid -->
-      <div class="row g-4 justify-content-center mb-5" id="remarksContainer">
-        <!-- Remarks will be loaded dynamically here -->
+      <!-- Vertical Scrolling Container -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="vertical-marquee-wrapper">
+            <div class="vertical-marquee-track" id="remarksContainer">
+              <!-- Remarks will be loaded and duplicated dynamically here for seamless scrolling -->
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Add Modern Remark Form -->
+      <!-- Add Modern Remark Form with Star Rating -->
       <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
           <div class="p-4 p-md-5 rounded-4 shadow-lg bg-white" style="border: 1px solid rgba(229, 231, 235, 0.8);">
             <div class="text-center mb-4">
               <h4 class="fw-bold text-dark">Share Your Experience</h4>
-              <p class="text-muted small">We value your feedback. Leave a remark for our team.</p>
+              <p class="text-muted small">We value your feedback. Rate us and leave a remark.</p>
             </div>
             
             <form id="remarkForm">
               <div class="row g-3">
+                <!-- Star Rating Selector -->
+                <div class="col-12 text-center mb-2">
+                  <label class="form-label text-muted d-block small fw-semibold">Select Your Rating</label>
+                  <div id="starRating" class="fs-4 text-warning" style="cursor: pointer;">
+                    <i class="bi bi-star-fill rating-star" data-rating="1"></i>
+                    <i class="bi bi-star-fill rating-star" data-rating="2"></i>
+                    <i class="bi bi-star-fill rating-star" data-rating="3"></i>
+                    <i class="bi bi-star-fill rating-star" data-rating="4"></i>
+                    <i class="bi bi-star-fill rating-star" data-rating="5"></i>
+                  </div>
+                  <input type="hidden" id="selectedRating" value="5">
+                </div>
+
                 <div class="col-md-6">
                   <div class="form-floating mb-2">
                     <input type="text" class="form-control rounded-3 border-light bg-light" id="reviewerName" placeholder="Your Name" required style="box-shadow: none;">
@@ -605,11 +624,31 @@
     </div>
   </section>
 
-  
+  <!-- Modern Styling & Vertical Animation Keyframes -->
+ 
 
   <script>
     const remarksContainer = document.getElementById("remarksContainer");
     const remarkForm = document.getElementById("remarkForm");
+    const stars = document.querySelectorAll(".rating-star");
+    const ratingInput = document.getElementById("selectedRating");
+
+    // Interactive Star Rating Logic
+    stars.forEach((star, index) => {
+      star.addEventListener("click", () => {
+        const rating = index + 1;
+        ratingInput.value = rating;
+        stars.forEach((s, i) => {
+          if (i < rating) {
+            s.classList.remove("bi-star");
+            s.classList.add("bi-star-fill");
+          } else {
+            s.classList.remove("bi-star-fill");
+            s.classList.add("bi-star");
+          }
+        });
+      });
+    });
 
     // JSONbin.io Credentials
     const JSONBIN_ID = "6aba983dac6210605afea26a";
@@ -648,11 +687,18 @@
         remarksContainer.innerHTML = `<p class="text-center text-muted">No remarks yet. Be the first to leave one!</p>`;
         return;
       }
+
+      // Build cards HTML markup
+      let cardsHtml = "";
       remarks.forEach(r => {
-        const colDiv = document.createElement("div");
-        colDiv.className = "col-12 col-md-4 d-flex justify-content-center";
-        colDiv.innerHTML = `
-          <div class="modern-review-card p-4 w-100 shadow-sm d-flex flex-column justify-content-between">
+        const ratingNum = parseInt(r.rating) || 5;
+        let starsMarkup = "";
+        for (let i = 0; i < 5; i++) {
+          starsMarkup += i < ratingNum ? '<i class="bi bi-star-fill"></i> ' : '<i class="bi bi-star"></i> ';
+        }
+
+        cardsHtml += `
+          <div class="modern-review-card p-4 w-100 d-flex flex-column justify-content-between">
             <div>
               <div class="d-flex align-items-center mb-3">
                 <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center fw-bold me-3" style="width: 48px; height: 48px; font-size: 1.2rem;">
@@ -664,24 +710,22 @@
                 </div>
               </div>
               <div class="text-warning mb-2" style="font-size: 0.85rem;">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+                ${starsMarkup}
               </div>
-              <p class="text-secondary" style="font-size: 0.95krem; line-height: 1.6;">"${escapeHtml(r.message)}"</p>
+              <p class="text-secondary mb-0" style="font-size: 0.95rem; line-height: 1.6;">"${escapeHtml(r.message)}"</p>
             </div>
           </div>
         `;
-        remarksContainer.appendChild(colDiv);
       });
+
+      // Duplicate the list once to ensure a seamless infinite vertical loop effect
+      remarksContainer.innerHTML = cardsHtml + cardsHtml;
     }
 
     function loadDefaultRemarks() {
       const defaultData = [
-        { name: "Anirban Mukherjee", role: "Project Client", message: "Ahavin Consultancy provided exceptional structural design and planning for our commercial building. Highly professional team!" },
-        { name: "Priyanka Sen", role: "Homeowner", message: "Brilliant architectural execution! They stayed true to timelines and budget constraints. Kudos to Shovan and the team." }
+        { name: "Anirban Mukherjee", role: "Project Client", rating: 5, message: "Ahavin Consultancy delivered outstanding structural design and strategic planning for our commercial building. Their team demonstrated exceptional professionalism and technical expertise throughout the project." },
+        { name: "Priyanka Sen", role: "Homeowner", rating: 5, message: "Brilliant architectural execution! They stayed true to timelines and budget constraints. Kudos to Shovan and the team." }
       ];
       renderRemarks(defaultData);
     }
@@ -694,6 +738,7 @@
         const name = document.getElementById("reviewerName").value;
         const role = document.getElementById("reviewerRole").value;
         const message = document.getElementById("reviewerMessage").value;
+        const rating = document.getElementById("selectedRating").value;
         const submitBtn = document.getElementById("submitBtn");
 
         submitBtn.disabled = true;
@@ -706,7 +751,7 @@
           .then(res => res.json())
           .then(data => {
             let remarks = data.record.remarks || [];
-            remarks.unshift({ name, role, message });
+            remarks.unshift({ name, role, rating, message });
 
             return fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_ID}`, {
               method: 'PUT',
@@ -720,6 +765,8 @@
           .then(() => {
             alert("Thank you! Your remark has been saved online.");
             remarkForm.reset();
+            ratingInput.value = "5";
+            stars.forEach(s => { s.classList.remove("bi-star"); s.classList.add("bi-star-fill"); });
             fetchRemarks();
             submitBtn.disabled = false;
             submitBtn.textContent = "Submit Remark";
